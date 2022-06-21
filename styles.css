@@ -1,11 +1,11 @@
 
 html {
-    font-size: 50px;
+    
     font-family: Nunito, sans-serif;
     
   }
 
-
+/* Button Style */
 .button {
     transition: transform 0.1s ease-out, box-shadow;
     font-size: 25px;
@@ -35,16 +35,35 @@ html {
     
   }
 
+
+  /*Display Screen Stles below*/
+.display-container{
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    
+    font-size: 30 px;
+    width: 230px;
+    height: 69px;
+    background-color: aliceblue;
+}
+.current-val{
+    font-size: 35px
+}
+.secondary-display{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    
+}
+/*Calculator Button Styles Below*/
   .secondary-button-container{
 padding:20px;
   }
 
 .button-container{
-    
     position: relative;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 10px;
-    
-   
 }
