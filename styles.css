@@ -1,0 +1,50 @@
+
+html {
+    font-size: 50px;
+    font-family: Nunito, sans-serif;
+    
+  }
+
+
+.button {
+    transition: transform 0.1s ease-out, box-shadow;
+    font-size: 25px;
+    min-height: 50px;
+    min-width: 50px;
+    box-sizing: border-box;
+    
+    background-color: #0872fd;
+    box-shadow: 0 5px 0 #07408a;
+    border-radius: 5px;
+    color: rgb(253, 237, 203);
+}
+
+.button:active {
+    box-shadow: none;
+    transform: translateY(5px);
+}
+.calculator {
+    padding: 20px;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    background-color: #f1e3c8;
+    
+  }
+
+  .secondary-button-container{
+padding:20px;
+  }
+
+.button-container{
+    
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+    
+   
+}
