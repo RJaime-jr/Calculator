@@ -47,7 +47,7 @@ html {
     height: 69px;
     background-color: aliceblue;
 }
-.current-val{
+#current-val{
     font-size: 35px
 }
 .secondary-display{
