@@ -2,13 +2,14 @@
 //Buttons
 let numButtons = document.querySelectorAll('.num-btn');
 let symButtons = document.querySelectorAll('.sym');
-let clear = document.querySelector('.clear');
+let clearBtn = document.querySelector('.clear');
 let del = document.querySelector('.del');
 let div = document.querySelector('.div');
 let mltply = document.querySelector('.mltply');
 let minus = document.querySelector('.minus');
 let plus = document.querySelector('.pls');
 let equals = document.querySelector('.equ');
+let deci = document.querySelector('.deci');
 
 //Display
 let primaryDisplay = document.getElementById("current-val");
@@ -16,101 +17,143 @@ let secondaryDisplay = document.getElementById("previous-val");
 let oppDisplay = document.getElementById("operation");
 
 //Empty Variables
-let currentVal = [];
-let SecondVal = 0;
+let displayVal = [];    
+let firstVal = null;
+let secondVal = 0; 
+let tempVal = null;
 let currentOpperand = '';
-let result = 0;
+let result = null;
+let decimalCount = 0;
 
 //Display Functions & Inputs
 
-function currentValPrint(num){
-  if(currentVal.length > 7){currentVal.pop();}
-    currentVal.push(num);
-    let numString = currentVal.join("");
-    return parseInt(numString);
+function displayValPrint(num){
+  if(displayVal.length > 7){displayVal.pop();}
+    displayVal.push(num);
+    let numString = displayVal.join("");
+    firstVal = parseFloat(numString);
+    return numString;
 }
 
 numButtons.forEach((button) =>
   button.addEventListener('click', function(){
-    primaryDisplay.innerText = currentValPrint(`${button.textContent}`);
-    console.log(primaryDisplay.textContent);
+    primaryDisplay.innerText = displayValPrint(`${button.textContent}`);
+   
     return;
   }));
  
 // Clear Button 
-clear.addEventListener('click', function(){
-  currentVal = [];
-  secondVal = '';
-  currentOpperand = '';
+clearBtn.addEventListener('click', function(){
   primaryDisplay.innerText = '0';
-  secondaryDisplay.innerText = '';
-  oppDisplay.innerText = '';
+ clear();
   return;
 })
+function clear (){
+  displayVal = [];
+  firstVal = 0;
+  secondVal = 0;
+  currentOpperand = '';
+  //primaryDisplay.innerText = '0';
+  secondaryDisplay.innerText = '';
+  oppDisplay.innerText = '';
+  result = null;
+  tempVal = null;
+  decimalCount = 0;
+
+}
 
 // Delete Button
 del.addEventListener('click', function(){
-    currentVal.pop();
-    let numString = currentVal.join("");
-  primaryDisplay.innerText = parseInt(numString);
+    displayVal.pop();
+    let numString = displayVal.join("");
+    
+  primaryDisplay.innerText = numString;
+  firstVal = parseFloat(numString);
   return;
   
+})
+
+// Decimal Button
+deci.addEventListener('click', function(){
+  if(decimalCount == 0){
+    primaryDisplay.innerText = displayValPrint(".");
+    //console.log("hello");
+  }
+  
+  decimalCount += 1;
+  //console.log(decimalCount);
+  return;
 })
 //Getting Opperand
 symButtons.forEach((button) =>
 button.addEventListener('click', function(){
-  SecondVal = parseInt(currentVal.join(""));
-  currentVal = [];
-  secondaryDisplay.innerText = SecondVal;
+  secondVal = parseFloat(displayVal.join(""));
+  //tempVal = firstVal;
+  firstVal = null;
+  displayVal = [];
+  decimalCount = 0;
+  
+  if(tempVal == null){
+    secondaryDisplay.innerText = secondVal;
+  }
+  else{
+    secondaryDisplay.innerText = tempVal;
+  }
   oppDisplay.innerText = `${button.textContent}`;
   primaryDisplay.innerText = "";
   
   currentOpperand = button.textContent;
-  console.log(currentOpperand);
+
   return;
 
 }));
 
-//Individual Symbol button events
-
-
-
-//Divide
-div.addEventListener('click', function(){
- 
-
-});
-
-//Multiply 
-
-mltply.addEventListener('click', function(){
-
- 
-});
-
-//Subtract
-minus.addEventListener('click', function(){
-  
-
-});
-
-//Add
-plus.addEventListener('click', function(){
-  if(SecondVal != "" && parseInt(currentVal.join(""))!= ""){
-    
-    result = add(parseInt(currentVal.join("")),SecondVal);
-  }
-  console.log(result);
-  return;
-});
-
 
 //Equals
 equals.addEventListener('click', function(){
-  if(SecondVal != "" && parseInt(currentVal.join(""))!= ""){
+// if result isnt empty
+ if(secondVal != null && firstVal != null && tempVal != null){
+  if(currentOpperand == "+"){
+    result = add(tempVal,firstVal);
+  }
+  else if(currentOpperand == "-"){
+    result = subtract(firstVal, tempVal);
+  }
+  else if(currentOpperand == "x"){
+    result = multiply(tempVal,firstVal);
+  }
+  else if(currentOpperand == "/"){
+    result = divide(firstVal,tempVal);
+  }
+  
+  primaryDisplay.innerText = result;
+  tempVal = result;
+
+}
+
+  //If both values arent empty
+  else if(secondVal != null && firstVal != null){
+    if(currentOpperand == "+"){
+      result = add(firstVal,secondVal);
+    }
+    else if(currentOpperand == "-"){
+      result = subtract(firstVal,secondVal);
+    }
+    else if(currentOpperand == "x"){
+      result = multiply(firstVal,secondVal);
+    }
+    else if(currentOpperand == "/"){
+      result = divide(firstVal,secondVal);
+    }
     
     primaryDisplay.innerText = result;
+    tempVal = result;
+    //clear();
   }
+
+
+  
+  return;
 });
 
   // Calculator Functions
@@ -121,7 +164,7 @@ equals.addEventListener('click', function(){
   }
 
   function divide(a,b){
-    return a/b;
+    return b/a;
   }
 
 
@@ -130,5 +173,5 @@ equals.addEventListener('click', function(){
   }
 
   function subtract(a,b){
-    return a - b;
+    return b - a;
   }

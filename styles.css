@@ -2,7 +2,13 @@
 html {
     
     font-family: Nunito, sans-serif;
-    
+    background-color: #f1e3c8;
+    min-height: 500px;
+  }
+  .container{
+  align-content: center;
+
+  
   }
 
 /* Button Style */
@@ -24,6 +30,10 @@ html {
     transform: translateY(5px);
 }
 .calculator {
+    min-width: 300px;
+    min-height: 437px;
+    max-width: 300px;
+    
     padding: 20px;
     
     display: flex;
@@ -31,7 +41,9 @@ html {
     justify-content: center;
     align-items: center;
     
-    background-color: #f1e3c8;
+  background-color: #d2bee0;
+    border: 2px solid black;
+    border-radius: 5px;
     
   }
 
@@ -46,6 +58,9 @@ html {
     width: 230px;
     height: 69px;
     background-color: aliceblue;
+    border: 2px solid black;
+    border-radius: 5px;
+    
 }
 #current-val{
     font-size: 35px
